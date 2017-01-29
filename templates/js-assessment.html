@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <title>Skills JavaScript</title>
   <link rel="stylesheet" href="/static/styles.css">
+  <script src="https://code.jquery.com/jquery.js"></script>
 </head>
 <body>
 
@@ -147,7 +148,12 @@
 
 <script>
   "use strict";
-  // put your code here
+
+  function changeCatToDog() {
+    $("#kittenz-rule").attr("src", "http://www.jokedujour.com/dog/pup-in-boots.jpg");
+  }
+
+  $("#kittenz-rule").on("dblclick", changeCatToDog);
 </script>
 
 <div class="hint">
@@ -163,7 +169,7 @@
   Make the classic "guess-a-number-between-1-and-100" in JavaScript.
 </p>
 <p>
-  The game should start when the user presses the play button. The funtion should first disable the button. The function should then pick a random integer from 1 to 100. Use the div with id 'number-guessing-msg' to ask the user to guess a number. This div will also display whether the guess was too high or too low. Once the user guesses the right number, three things should happen: first, the div should congratulate the player; second, the form should be disabled; third, the play button should be re-enabled.
+  The game should start when the user presses the play button. The function should first disable the button. The function should then pick a random integer from 1 to 100. Use the div with id 'number-guessing-msg' to ask the user to guess a number. This div will also display whether the guess was too high or too low. Once the user guesses the right number, three things should happen: first, the div should congratulate the player; second, the form should be disabled; third, the play button should be re-enabled.
 </p>
 
 <fieldset>
@@ -178,7 +184,43 @@
 
 <script>
   "use strict";
-  // put your code here
+
+  function playGame() {
+    $("#play-guessing-game").attr("disabled", "disabled");
+    $("#number-guessed").removeAttr("disabled");
+    $("#try-this-number").removeAttr("disabled");
+
+    $("#number-guessing-msg").html("Guess a number between 1 and 100.");
+
+    var num = Math.floor(Math.random() * 100) + 1;
+    console.log(num);
+
+    var guess = getUserGuess();
+
+    if (guess != num) {
+      if (guess > num) {
+        $("#number-guessing-msg").html("Too high!");
+      } else {
+        $("#number-guessing-msg").html("Too low!");
+      }
+    } else {
+      $("#number-guessing-msg").html("Congratulations! You guessed the number.");
+      $("#play-guessing-game").removeAttr("disabled");
+      $("#number-guessed").attr("disabled", "disabled");
+      $("#try-this-number").attr("disabled", "disabled");
+    }
+  }
+
+  function getUserGuess() {
+    // get data from form field
+    // $("#guessing-game-form").attr("action", // replacement)
+
+    var guess = $("#number-guessed").val();   // fix var assignment, make integer
+    return guess;
+  }
+
+  $("#play-guessing-game").on("click", playGame);
+
 </script>
 
 
