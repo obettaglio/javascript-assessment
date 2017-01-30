@@ -195,7 +195,8 @@
     var num = Math.floor(Math.random() * 100) + 1;
     console.log(num);
 
-    var guess = getUserGuess();
+    var guess = getUserGuess();   // get user input somehow
+    // $("#number-guessed").on("change", getUserGuess)
 
     if (guess != num) {
       if (guess > num) {
@@ -285,13 +286,25 @@
     $("#t-rex-img").append(tRexPhoto);
   }
 
-  // put your code here
+  function getAttackInfo(evt) {
+    evt.preventDefault();
+
+    var formInput = {
+      "victimName": $("#victim-name").val()
+    };
+
+    $.get("/t-rex-attack.json",   // server.py uses 'request.form.get' for 'victim-name'
+           formInputs,            // but a GET request works better for this game
+           showTRexResults);      // #confused
+  }
+
+  $("#Attack").addEventListener("click", getAttackInfo);
 
 </script>
 
 <div class="hint">
   <div>
-    What type of request makes more sense here, GET or POST?
+    What type of request makes more sense here, GET or POST?  <!-- GET request -->
   </div>
 </div>
 
